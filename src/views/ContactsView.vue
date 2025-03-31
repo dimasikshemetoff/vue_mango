@@ -1,23 +1,19 @@
 <template>
-  <div class="home">
     <app-header></app-header>
-    <the-main></the-main>
-    <app-footer></app-footer>
-  </div>
+    <the-contacts></the-contacts>
 </template>
 
 <script>
 // @ is an alias to /src
 import AppHeader from '@/components/AppHeader'
 import AppFooter from '@/components/AppFooter'
-import TheMain from '@/components/TheMain.vue'
+import TheContacts from '@/components/TheContacts.vue';
 
 export default {
-  name: 'home',
+  name: 'contacts',
   components: {
     AppHeader,
-    TheMain,
-    AppFooter
+    TheContacts
   }
 }
 </script>
