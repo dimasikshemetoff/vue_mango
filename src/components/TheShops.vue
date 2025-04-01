@@ -1,224 +1,55 @@
 <template>
     <main class="main _container">
         <h1>
-            Магазины тц "манго"
+            Магазины ТЦ "Манго"
         </h1>
 
-        <h2 class="hall">Цоколь</h2>
-        <div class="hall_list">
-            
-            <div class="hall_list_item">
-                <img src="../assets/icons/img/shop.png" alt="shop">
-                <dl>
-                    <dt>Аптека</dt>
-                    <dd>Здоровая Семья</dd>
-                </dl>
-            </div>
-            <div class="hall_list_item">
-                <img src="../assets/icons/img/shop.png" alt="shop">
-                <dl>
-                    <dt>Аптека</dt>
-                    <dd>Здоровая Семья</dd>
-                </dl>
-            </div>
-            <div class="hall_list_item">
-                <img src="../assets/icons/img/shop.png" alt="shop">
-                <dl>
-                    <dt>Аптека</dt>
-                    <dd>Здоровая Семья</dd>
-                </dl>
-            </div>
-            <div class="hall_list_item">
-                <img src="../assets/icons/img/shop.png" alt="shop">
-                <dl>
-                    <dt>Аптека</dt>
-                    <dd>Здоровая Семья</dd>
-                </dl>
-            </div>
-            <div class="hall_list_item">
-                <img src="../assets/icons/img/shop.png" alt="shop">
-                <dl>
-                    <dt>Аптека</dt>
-                    <dd>Здоровая Семья</dd>
-                </dl>
-            </div>
-            <div class="hall_list_item">
-                <img src="../assets/icons/img/shop.png" alt="shop">
-                <dl>
-                    <dt>Аптека</dt>
-                    <dd>Здоровая Семья</dd>
-                </dl>
-            </div>
-            <div class="hall_list_item">
-                <img src="../assets/icons/img/shop.png" alt="shop">
-                <dl>
-                    <dt>Аптека</dt>
-                    <dd>Здоровая Семья</dd>
-                </dl>
-            </div>
-            
-        </div>
-        <h2 class="hall">1 этаж</h2>
-        <div class="hall_list">
-            
-            <div class="hall_list_item">
-                <img src="../assets/icons/img/shop.png" alt="shop">
-                <dl>
-                    <dt>Аптека</dt>
-                    <dd>Здоровая Семья</dd>
-                </dl>
-            </div>
-            <div class="hall_list_item">
-                <img src="../assets/icons/img/shop.png" alt="shop">
-                <dl>
-                    <dt>Аптека</dt>
-                    <dd>Здоровая Семья</dd>
-                </dl>
-            </div>
-            <div class="hall_list_item">
-                <img src="../assets/icons/img/shop.png" alt="shop">
-                <dl>
-                    <dt>Аптека</dt>
-                    <dd>Здоровая Семья</dd>
-                </dl>
-            </div>
-            <div class="hall_list_item">
-                <img src="../assets/icons/img/shop.png" alt="shop">
-                <dl>
-                    <dt>Аптека</dt>
-                    <dd>Здоровая Семья</dd>
-                </dl>
-            </div>
-            <div class="hall_list_item">
-                <img src="../assets/icons/img/shop.png" alt="shop">
-                <dl>
-                    <dt>Аптека</dt>
-                    <dd>Здоровая Семья</dd>
-                </dl>
-            </div>
-            <div class="hall_list_item">
-                <img src="../assets/icons/img/shop.png" alt="shop">
-                <dl>
-                    <dt>Аптека</dt>
-                    <dd>Здоровая Семья</dd>
-                </dl>
-            </div>
-            <div class="hall_list_item">
-                <img src="../assets/icons/img/shop.png" alt="shop">
-                <dl>
-                    <dt>Аптека</dt>
-                    <dd>Здоровая Семья</dd>
-                </dl>
-            </div>
-        </div>
-        <h2 class="hall">2 этаж</h2>
-        <div class="hall_list">
-            
-            <div class="hall_list_item">
-                <img src="../assets/icons/img/shop.png" alt="shop">
-                <dl>
-                    <dt>Аптека</dt>
-                    <dd>Здоровая Семья</dd>
-                </dl>
-            </div>
-            <div class="hall_list_item">
-                <img src="../assets/icons/img/shop.png" alt="shop">
-                <dl>
-                    <dt>Аптека</dt>
-                    <dd>Здоровая Семья</dd>
-                </dl>
-            </div>
-            <div class="hall_list_item">
-                <img src="../assets/icons/img/shop.png" alt="shop">
-                <dl>
-                    <dt>Аптека</dt>
-                    <dd>Здоровая Семья</dd>
-                </dl>
-            </div>
-            <div class="hall_list_item">
-                <img src="../assets/icons/img/shop.png" alt="shop">
-                <dl>
-                    <dt>Аптека</dt>
-                    <dd>Здоровая Семья</dd>
-                </dl>
-            </div>
-            <div class="hall_list_item">
-                <img src="../assets/icons/img/shop.png" alt="shop">
-                <dl>
-                    <dt>Аптека</dt>
-                    <dd>Здоровая Семья</dd>
-                </dl>
-            </div>
-            <div class="hall_list_item">
-                <img src="../assets/icons/img/shop.png" alt="shop">
-                <dl>
-                    <dt>Аптека</dt>
-                    <dd>Здоровая Семья</dd>
-                </dl>
-            </div>
-            <div class="hall_list_item">
-                <img src="../assets/icons/img/shop.png" alt="shop">
-                <dl>
-                    <dt>Аптека</dt>
-                    <dd>Здоровая Семья</dd>
-                </dl>
-            </div>
-
-        </div>
-        <h2 class="hall">3 этаж</h2>
-        <div class="hall_list">
-            <div class="hall_list_item">
-                <img src="../assets/icons/img/shop.png" alt="shop">
-                <dl>
-                    <dt>Аптека</dt>
-                    <dd>Здоровая Семья</dd>
-                </dl>
-            </div>
-            <div class="hall_list_item">
-                <img src="../assets/icons/img/shop.png" alt="shop">
-                <dl>
-                    <dt>Аптека</dt>
-                    <dd>Здоровая Семья</dd>
-                </dl>
-            </div>
-            <div class="hall_list_item">
-                <img src="../assets/icons/img/shop.png" alt="shop">
-                <dl>
-                    <dt>Аптека</dt>
-                    <dd>Здоровая Семья</dd>
-                </dl>
-            </div>
-            <div class="hall_list_item">
-                <img src="../assets/icons/img/shop.png" alt="shop">
-                <dl>
-                    <dt>Аптека</dt>
-                    <dd>Здоровая Семья</dd>
-                </dl>
-            </div>
-            <div class="hall_list_item">
-                <img src="../assets/icons/img/shop.png" alt="shop">
-                <dl>
-                    <dt>Аптека</dt>
-                    <dd>Здоровая Семья</dd>
-                </dl>
-            </div>
-            <div class="hall_list_item">
-                <img src="../assets/icons/img/shop.png" alt="shop">
-                <dl>
-                    <dt>Аптека</dt>
-                    <dd>Здоровая Семья</dd>
-                </dl>
-            </div>
-            <div class="hall_list_item">
-                <img src="../assets/icons/img/shop.png" alt="shop">
-                <dl>
-                    <dt>Аптека</dt>
-                    <dd>Здоровая Семья</dd>
-                </dl>
+        <div v-for="floor in uniqueFloors" :key="floor">
+            <h2 class="hall">{{ floor }} этаж</h2>
+            <div class="hall_list">
+                <div v-for="store in stores.filter(s => s.floor === floor)" :key="store.id" class="hall_list_item">
+                    <img src="../assets/icons/img/shop.png" alt="shop">
+                    <dl>
+                        <dd>{{ store.info }}</dd>
+                        <dt>{{ store.name }}</dt>
+                        
+                    </dl>
+                </div>
             </div>
         </div>
     </main>
 </template>
+
+<script>
+import axios from 'axios';
+
+export default {
+    data() {
+        return {
+            stores: [],
+        };
+    },
+    async created() {
+        await this.getStores();
+    },
+    methods: {
+        async getStores() {
+            try {
+                const response = await axios.get('http://localhost/stores');
+                this.stores = response.data;
+            } catch (error) {
+                console.error('Ошибка при получении магазинов:', error);
+            }
+        }
+    },
+    computed: {
+        uniqueFloors() {
+            // Получаем уникальные этажи, в которых находятся магазины
+            return [...new Set(this.stores.map(store => store.floor))].sort((a, b) => a - b);
+        }
+    }
+}
+</script>
 
 <style lang="scss">
 .hall_list{

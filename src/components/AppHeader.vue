@@ -12,7 +12,7 @@
             <router-link to="/shops" :id="isActive('/shops') ? 'active' : null">Магазины</router-link>
             <router-link to="/contacts" :id="isActive('/contacts') ? 'active' : null">Контакты</router-link>
             <router-link to="/arenda" :id="isActive('/arenda') ? 'active' : null">Арендаторам</router-link>
-            <router-link to="/login" v-if="authorize">{{ UserName }}</router-link>
+            <router-link to="/lk" v-if="authorize">{{ UserName }}</router-link>
             <router-link to="/login" v-else>Вход</router-link>
 
         </nav>
@@ -32,7 +32,15 @@
 <script>
 export default{
     name: "Header",
+    data(){
+        return {
+             UserName: "Дмитрий",
+            authorize: false
+        }
+       
+    },
     methods: {
+
         isActive(route) {
             return this.$route.path === route;
         }
