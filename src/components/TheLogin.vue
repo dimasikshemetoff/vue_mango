@@ -3,11 +3,12 @@
         <div class="authorization">
             <router-link to="/"><img class="authorization__logo" src="../assets/icons/img/logo.png" alt="logo"></router-link>
             <form @submit.prevent="handleLogin">
-                <div class="authorization__input">
+                <div class="authorization__input" :class="{ 'error': usernameError }">
                     <input type="text" placeholder="ЛОГИН" v-model="username" required>
+                    <center><p v-if="usernameError">Логин неправильный</p></center>
                     <img class="authorization__user" src="../assets/icons/user.png" alt="username">
                 </div>
-                <div class="authorization__input">
+                <div class="authorization__input" :class="{ 'error': passwordError }">
                     <input id="pass" placeholder="пароль" v-model="password" :type="passwordVisible ? 'text' : 'password'" required>
                     <img class="authorization__user" src="../assets/icons/password.png" alt="password">
                     <img class="authorization__password" id="hide" src="../assets/icons/eye_hid.png" alt="hidden" @click="togglePasswordVisibility" v-if="!passwordVisible">
@@ -28,43 +29,47 @@ export default {
         return {
             username: '',
             password: '',
-            passwordVisible: false // Состояние для показа/скрытия пароля
+            passwordVisible: false, // Состояние для показа/скрытия пароля
+            usernameError: false, // Валидация для email
+            passwordError: false   // Валидация для пароля
         };
     },
-    mounted() {
-        document.title = this.$route.meta.title + " Манго";
-    },
-    watch: {
-        $route(to) {
-            document.title = to.meta.title + " Манго";
-        }
-    },
     methods: {
-    togglePasswordVisibility() {
-        this.passwordVisible = !this.passwordVisible;
-    },
-    async handleLogin() {
-        try {
-            const response = await axios.post('http://localhost/auth', {
-                username: this.username,
-                password: this.password
-            });
+        togglePasswordVisibility() {
+            this.passwordVisible = !this.passwordVisible;
+        },
+        validateInputs() {
+            this.usernameError = !this.validateEmail(this.username);
+            this.passwordError = this.password.length < 6; // Минимальная длина пароля
+        },
+        validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Регулярное выражение для email
+            return re.test(email);
+        },
+        async handleLogin() {
+            this.validateInputs(); // Запускаем валидацию
 
-            // Предполагается, что API возвращает объект с информацией о пользователе
-            const user = response.data;
-
-            if (user) {
-                // Сохранение роли и других данных пользователя в localStorage
-                localStorage.setItem('userRole', user.role);
-                localStorage.setItem('username', user.username);
-                
-                // Перенаправление на главную страницу после успешного входа
-                this.$router.push('/');
-            } else {
-                alert('Недействительный логин или пароль');
+            if (this.usernameError || this.passwordError) {
+                return; // Прерываем выполнение, если есть ошибки
             }
-        } catch (error) {
-            // Обработка ошибок
+
+            try {
+                const response = await axios.post('http://localhost/auth', {
+                    username: this.username,
+                    password: this.password
+                });
+
+                const user = response.data;
+
+                if (user) {
+                    localStorage.setItem('userRole', user.role);
+                    localStorage.setItem('username', user.username);
+                    this.$router.push('/');
+                } else {
+                    alert('Недействительный логин или пароль');
+                }
+            } catch (error) {
+                // Обработка ошибок
             if (error.response) {
                 // Если сервер ответил с кодом ошибки
                 console.error('Ошибка при входе:', error.response.data);
@@ -78,10 +83,12 @@ export default {
                 console.error('Ошибка:', error.message);
                 alert('Ошибка: ' + error.message);
             }
+            }
         }
     }
-}};
+};
 </script>
+
 
 <style lang="scss" scoped>
 body {
@@ -186,5 +193,14 @@ body {
         margin-top: -20px;
         color: #2F8F38;
     }
+}
+
+.authorization__input.error input {
+    border: 2px solid red; /* Красная рамка при ошибке */
+}
+
+.authorization__input input {
+
+    transition: border-color 0.3s;
 }
 </style>

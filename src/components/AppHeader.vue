@@ -16,7 +16,7 @@
             <router-link to="/login" v-else>Вход</router-link>
 
         </nav>
-        <div class="burger">
+        <div class="burger" @click="openBurger" :class="{'open': burgerOpen}">
             <img id="top" src="../assets/icons/burger top.png" alt="top">
             <img id="middle" src="../assets/icons/burger middle.png" alt="middle">
             <img id="bottom" src="../assets/icons/burger bottom.png" alt="bottom">
@@ -25,6 +25,17 @@
         </div>
        
     </header>
+    <div class="burger_menu" :class="{'full': burgerOpen}">
+        <img src="../assets/icons/exit.png" alt="exit" @click="openBurger">
+        <div class="navig">
+            <router-link to="/shops" :id="isActive('/shops') ? 'active' : null" @click="openBurger">Магазины</router-link>
+            <router-link to="/contacts" :id="isActive('/contacts') ? 'active' : null" @click="openBurger">Контакты</router-link>
+            <router-link to="/arenda" :id="isActive('/arenda') ? 'active' : null" @click="openBurger">Арендаторам</router-link>
+            <router-link to="/lk" v-if="authorize" @click="openBurger">{{ UserName }}</router-link>
+            <router-link to="/login" v-else @click="openBurger">Вход</router-link>
+
+        </div>
+    </div>
     </div>
 </template>
 
@@ -35,11 +46,19 @@ export default{
     data(){
         return {
              UserName: "Дмитрий",
-            authorize: false
+            authorize: false,
+            burgerOpen: false
         }
        
     },
     methods: {
+
+        openBurger(){
+            
+            this.burgerOpen = !this.burgerOpen
+            
+            
+        },
 
         isActive(route) {
             return this.$route.path === route;
@@ -242,6 +261,10 @@ header{
         right: 20px;
         cursor: pointer;
     }
+    
 
+}
+.full {
+    left: 0;
 }
 </style>
