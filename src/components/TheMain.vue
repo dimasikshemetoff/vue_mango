@@ -62,11 +62,19 @@ export default{
         font-size: 48pt;
         font-family: 'FE MussyPussy';
         padding: 37px 0px;
-    }
+    
+    @media (max-width: 950px) {
+                font-size: 24pt;
+            
+            }}
     p{
         color: black;
         text-align: justify;
         font-size: 20pt;
+        @media (max-width: 950px) {
+                font-size: 16pt;
+            
+            }
     }
     .news{
         display: flex;
@@ -77,6 +85,10 @@ export default{
         h2{
             color: black;
             font-size: 32pt;
+            @media (max-width: 950px) {
+                font-size: 20pt;
+            
+            }
         }
         .news_item{
             box-sizing: border-box;
@@ -87,9 +99,21 @@ export default{
             padding: 25px 45px;
             width: 100%;
             border-radius: 20px;
+            @media (max-width: 950px) {
+                padding: 25px 10px;
+                flex-direction: column;
+                gap: 10px;
+            
+            }
+            
 
             p{
                 width: 420px;
+                @media (max-width: 950px) {
+                    width: 80%;
+                    font-size: 10pt;
+            
+            }
             }
         }
     }
@@ -98,16 +122,21 @@ export default{
 .slider{
     position: relative;
     width: 100%;
-    height: 420px;
+    height: fit-content;
 
     overflow: hidden;
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
     border-radius: 20px;
+
+    img{
+        width: 100%;
+    }
+    
     ul {
         position: relative;
         list-style: none;
-        height: 100%;
-        width: 10000%;
+        height: fit-content;
+        width: 100%;
         padding: 0;
         margin: 0;
         transition: all 750ms ease;
@@ -117,6 +146,9 @@ export default{
             height: 100%;
           
             float: left;
+            
+            object-fit: contain;
+            
           }
       }
       #prev, #next {
@@ -144,5 +176,13 @@ export default{
         background-color: rgba(0, 0, 0, 0.5);
         text-shadow: 0;
       }
+      @media (max-width: 950px) {
+                width: 100%;
+            
+            }
+    @media (max-width: 400px) {
+        width: 100%;
+            
+    }
 }
 </style>

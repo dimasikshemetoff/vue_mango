@@ -32,7 +32,7 @@
 
 <style lang="scss">
     .arenda{
-    @media (max-width: 390px) {
+    @media (max-width: 400x) {
         display: flex;
         flex-direction: column;
     }
@@ -41,7 +41,7 @@
     }
     p{
         font-size: 20pt;
-        @media (max-width: 390px) {
+        @media (max-width: 400px) {
             font-size: 12pt;
         }
 
@@ -58,7 +58,7 @@
             flex-direction: column;
             
             font-size: 32pt;
-            @media (max-width: 390px) {
+            @media (max-width: 400px) {
                 font-size: 12pt;
             }
             a{
@@ -78,7 +78,7 @@
             flex-direction: column;
             
             font-size: 32pt;
-            @media (max-width: 390px) {
+            @media (max-width: 400px) {
                 font-size: 12pt;
             }
             a{

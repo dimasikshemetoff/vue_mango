@@ -4,7 +4,7 @@
         <div class="_container header">
             <router-link to="/"><img src="../assets/icons/img/logo.png" alt="logo"></router-link>
         <div class="search">
-            <input type="search" placeholder="ПОИСК ПО САЙТУ">
+            <input type="text" placeholder="ПОИСК ПО САЙТУ">
             <img src="../assets/icons/search.png" alt="search">
         </div>
         <nav>
@@ -35,21 +35,31 @@
             <router-link to="/login" v-else @click="openBurger">Вход</router-link>
 
         </div>
+        <div class="search">
+            <input type="text" placeholder="ПОИСК ПО САЙТУ">
+            <img src="../assets/icons/search.png" alt="search">
+        </div>
     </div>
     </div>
 </template>
 
 
 <script>
+
+
+
 export default{
     name: "Header",
     data(){
         return {
-             UserName: "Дмитрий",
+             UserName: "User",
             authorize: false,
             burgerOpen: false
         }
        
+    },
+    mounted(){
+        this.isAuthorize()
     },
     methods: {
 
@@ -57,8 +67,18 @@ export default{
             
             this.burgerOpen = !this.burgerOpen
             
-            
+            if(this.burgerOpen)
+                document.getElementsByTagName( 'html' )[0].classList.add('lock')
+            else
+                document.getElementsByTagName( 'html' )[0].classList.remove('lock')
         },
+        isAuthorize(){
+            if(localStorage.getItem('username')){
+                this.authorize = true
+                this.UserName = localStorage.getItem('username').split("@")[0]
+            }
+        },
+        
 
         isActive(route) {
             return this.$route.path === route;
@@ -78,13 +98,14 @@ header{
     
 
     .header{
-        
         display: flex;
         justify-content: space-between;
         align-items: center;
         height: 130px; 
-
-        @media (max-width: 390px) {
+        @media (max-width: 700px) {
+            height: 80px;
+        }
+        @media (max-width: 400px) {
             height: 60px;
         }
         
@@ -94,7 +115,7 @@ header{
     img{
         width: 210px;
         height: auto;
-        @media (max-width: 390px) {
+        @media (max-width: 400px) {
             width: 100px;
             height: auto;
         }
@@ -126,7 +147,7 @@ header{
                 height: 35px;
             
             }
-            @media (max-width: 390px) {
+            @media (max-width: 400px) {
                 width: 120px;
                 padding-left: 20px;
                 height: 25px;
@@ -147,13 +168,16 @@ header{
                 height: 20px;
             
             }
-            @media (max-width: 390px) {
+            @media (max-width: 400px) {
                 width: 13px;
                 height: 13px;
                 top: 6px;
                 left: 6px;
             }
             
+        }
+        @media (max-width: 400px) {
+            display: none;
         }
     }
     .burger{
@@ -237,7 +261,37 @@ header{
     transition: left 1s;
     z-index: 2;
 
-    
+    .search{
+        position: relative;
+        margin: 10%;
+
+
+        input{
+            width: 100%;
+            height: 30px;
+            font-size: 14pt;
+            box-sizing: border-box;
+            padding-left: 50px;
+            border: 2px solid #e9592c;
+            border-radius: 20px;
+            
+            :focus-visible{
+                border: none;
+            }
+            
+
+        }
+        img{
+            position: absolute;
+            left: 5px;
+            top: 2.5px;
+            width: 25px;
+            height: 25px;
+            
+            
+        }
+        
+    }
 
     .navig{
         position: relative;

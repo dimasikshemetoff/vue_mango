@@ -8,7 +8,13 @@
     padding: 0;
     border: 0;
 }
-html { overflow-y: scroll; }
+html { 
+    overflow-y: scroll; 
+    
+    &.lock {
+        overflow: hidden;
+    }
+}
 
 
 img {

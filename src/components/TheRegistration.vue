@@ -44,23 +44,34 @@ export default {
             this.passwordVisible = !this.passwordVisible; // Переключение видимости пароля
         },
         async handleRegistration() {
-            try {
-                const response = await axios.post('http://localhost/registration', {
-                    email: this.email,
-                    password: this.password
-                });
+    try {
+        // Используем переменную окружения для получения URL API
+        const response = await axios.post(process.env.VUE_APP_URL_API + '/register', {
+            email: this.email,
+            password: this.password
+        });
 
-                if (response.data.success) {
-                    alert('Регистрация прошла успешно!'); // Сообщение об успешной регистрации
-                    this.$router.push('/login'); // Перенаправление на страницу входа
-                } else {
-                    alert('Ошибка: ' + response.data.message); // Сообщение об ошибках
-                }
-            } catch (error) {
-                console.error('Ошибка при регистрации:', error);
-                alert('Ошибка: ' + (error.response && error.response.data.message ? error.response.data.message : 'Неизвестная ошибка')); // Обработка сетевых ошибок
+        // Проверяем успешность регистрации от сервера
+        if (response.data.success) {
+            // Если успешная регистрация, вы можете также сохранить токен, если он возвращается
+            // Предполагаем, что токен может быть в response.data.token
+            if (response.data.token) {
+                localStorage.setItem('token', response.data.token); // Сохраняем токен
+                axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
             }
+
+            alert('Регистрация прошла успешно!'); // Сообщение об успешной регистрации
+            this.$router.push('/login'); // Перенаправление на страницу входа
+        } else {
+            alert('Ошибка: ' + response.data.message); // Сообщение об ошибках
         }
+    } catch (error) {
+        // Обработка ошибок
+        console.error('Ошибка при регистрации:', error);
+        alert('Ошибка: ' + (error.response && error.response.data.message ? error.response.data.message : 'Неизвестная ошибка')); // Обработка сетевых ошибок
+    }
+}
+
     }
 };
 </script>

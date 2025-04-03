@@ -41,8 +41,9 @@ export default {
     methods: {
         async getStores() {
             try {
-                const response = await axios.get('http://192.168.1.88/api/stores');
+                const response = await axios.get(process.env.VUE_APP_URL_API + '/api/stores');
                 this.stores = response.data;
+                console.log(process.env.VUE_APP_URL_API)
             } catch (error) {
                 console.error('Ошибка при получении магазинов:', error);
             }
@@ -81,7 +82,22 @@ export default {
             color: #E9592C;
             font-weight: 600;
         }
+        @media (max-width: 950px) {
+                
+                flex-direction: row;
+                text-align: start;
+                gap: 10px;
+            
+            }
+        
     }
+    @media (max-width: 950px) {
+                padding: 25px 25px;
+                flex-direction: column;
+                gap: 30px;
+            
+            }
+
 }
 .hall{
     padding-top: 30px;
@@ -89,5 +105,9 @@ export default {
         font-family: 'FE MussyPussy';
         font-size: 32pt;
         padding-bottom: 10px;
-    }
+    
+    @media (max-width: 950px) {
+                font-size: 20pt;
+            
+            }}
 </style>

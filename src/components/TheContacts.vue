@@ -22,7 +22,10 @@
             </div>
         </div> 
         <div>
-            <iframe class="iframe" src="https://yandex.ru/map-widget/v1/?um=constructor%3A01b18e11d7963272e5b8e8c3a4706214cbb1696721f662f2cd18679a38ff4045&amp;source=constructor" width="700" height="370" frameborder="0"></iframe>
+            <div id="wrapMap" @click="okIframe">
+                <iframe style="pointer-events: none;" ref="map" class="iframe" src="https://yandex.ru/map-widget/v1/?um=constructor%3A01b18e11d7963272e5b8e8c3a4706214cbb1696721f662f2cd18679a38ff4045&amp;source=constructor" width="700" height="370" frameborder="0"></iframe>
+            </div>
+            
             <div class="link">
                 <h3>МЫ В</h3>
                 <a href="#"><img src="../assets/icons/vk.png" alt="vk"></a>
@@ -39,22 +42,40 @@
     </main>
 </template>
 
+<script>
+
+export default {
+
+    methods:{
+        okIframe(){
+            this.$refs.map.removeAttribute('style')
+        }
+    }
+    
+}
+</script>
+
+
 <style lang="scss">
 .contact{
     display: flex;
     flex-direction: column;
     gap: 37px;
-    @media (max-width: 390px) {
+    @media (max-width: 600px) {
         text-align: center;
+        gap: 10px;
     }
     h1{
         color: #E9592C;
+        @media (max-width: 600px) {
+        padding: 10px;
+    }
     }
     h3{
         color: black;
         font-size: 24pt;
         font-family: 'FE MussyPussy';
-        @media (max-width: 390px) {
+        @media (max-width: 400px) {
             font-size: 12pt;
         }
     }
@@ -70,7 +91,7 @@
             font-size: 24pt;
             text-decoration: underline;
             color: #2F8F38;
-            @media (max-width: 390px) {
+            @media (max-width: 400px) {
                 font-size: 12pt;
             }
         }
@@ -86,8 +107,9 @@
 .iframe{
     margin-top: 150px;
     border: 2px solid black;
-    @media (max-width: 390px) {
+    @media (max-width: 400px) {
         width: 100%;
+        height: 200px;
         margin-top: 37px;
     }
 }
@@ -105,7 +127,7 @@
         color: #E9592C;
         gap: 7px;
     }
-    @media (max-width: 390px) {
+    @media (max-width: 600px) {
         flex-direction: column;
         .link{
             justify-content: center;

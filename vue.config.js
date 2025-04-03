@@ -3,12 +3,12 @@ module.exports = defineConfig({
   transpileDependencies: true,
   pwa: {
     name: 'Манго',
-    themeColor: '#42B983',
+    themeColor: '#3A3A3A',
     msTileColor: '#000000',
     appleMobileWebAppCapable: 'yes',
     appleMobileWebAppStatusBarStyle: 'black-translucent',
     manifestOptions: {
-      background_color: '#FFFFFF'
+      background_color: '#3A3A3A'
     }
   }
 })

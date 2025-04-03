@@ -78,7 +78,7 @@ footer{
     justify-content: space-between;
     #my_time{
         font-size: 16pt;
-        @media (max-width: 390px) {
+        @media (max-width: 400px) {
             display: none;
         }
     }
@@ -89,7 +89,7 @@ footer{
         justify-content: space-between;
         gap: 7px;
     }
-    @media (max-width: 390px) {
+    @media (max-width: 400px) {
         font-size: 8pt;
         text-wrap: nowrap;
         img{

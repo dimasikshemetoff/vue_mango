@@ -5,15 +5,17 @@
             <form @submit.prevent="handleLogin">
                 <div class="authorization__input" :class="{ 'error': usernameError }">
                     <input type="text" placeholder="ЛОГИН" v-model="username" required>
-                    <center><p v-if="usernameError">Логин неправильный</p></center>
+                    
                     <img class="authorization__user" src="../assets/icons/user.png" alt="username">
                 </div>
+                <center><p v-if="usernameError">Логин неправильный</p></center>
                 <div class="authorization__input" :class="{ 'error': passwordError }">
                     <input id="pass" placeholder="пароль" v-model="password" :type="passwordVisible ? 'text' : 'password'" required>
                     <img class="authorization__user" src="../assets/icons/password.png" alt="password">
                     <img class="authorization__password" id="hide" src="../assets/icons/eye_hid.png" alt="hidden" @click="togglePasswordVisibility" v-if="!passwordVisible">
                     <img class="authorization__password" id="vision" src="../assets/icons/eye_vis.png" alt="visible" @click="togglePasswordVisibility" v-if="passwordVisible">
                 </div>
+                <center><p v-if="passwordError">Пароль неправильный</p></center>
                 <button type="submit">ВХОД</button>
                 <router-link to="/registration">Регистрация</router-link>
             </form>
@@ -46,30 +48,37 @@ export default {
             const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Регулярное выражение для email
             return re.test(email);
         },
-        async handleLogin() {
-            this.validateInputs(); // Запускаем валидацию
+    async handleLogin() {
+        this.validateInputs(); // Запускаем валидацию
 
-            if (this.usernameError || this.passwordError) {
-                return; // Прерываем выполнение, если есть ошибки
+        if (this.usernameError || this.passwordError) {
+            return; // Прерываем выполнение, если есть ошибки
+        }
+
+        try {
+            const response = await axios.post(process.env.VUE_APP_URL_API + '/api/login', {
+                email: this.username,
+                password: this.password
+            });
+
+            const user = response.data;
+
+            // Предполагаем, что ваш сервер возвращает токен в поле token
+            if (user.status) {
+                // Сохраняем токен и другие данные о пользователе
+                localStorage.setItem('userRole', user.role);
+                localStorage.setItem('username', user.email);
+                localStorage.setItem('token', user.token); // Сохраняем токен
+                console.log(localStorage)
+                // Установим заголовок Authorization для будущих запросов
+                axios.defaults.headers.common['Authorization'] = `Bearer ${user.token}`;
+                
+                this.$router.push('/');
+            } else {
+                alert('Недействительный логин или пароль');
             }
-
-            try {
-                const response = await axios.post('http://localhost/auth', {
-                    username: this.username,
-                    password: this.password
-                });
-
-                const user = response.data;
-
-                if (user) {
-                    localStorage.setItem('userRole', user.role);
-                    localStorage.setItem('username', user.username);
-                    this.$router.push('/');
-                } else {
-                    alert('Недействительный логин или пароль');
-                }
-            } catch (error) {
-                // Обработка ошибок
+        } catch (error) {
+            // Обработка ошибок
             if (error.response) {
                 // Если сервер ответил с кодом ошибки
                 console.error('Ошибка при входе:', error.response.data);
@@ -83,8 +92,9 @@ export default {
                 console.error('Ошибка:', error.message);
                 alert('Ошибка: ' + error.message);
             }
-            }
         }
+    }
+
     }
 };
 </script>

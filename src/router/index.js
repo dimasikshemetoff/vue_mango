@@ -6,7 +6,7 @@ const routes = [
       path: '/',
       name: 'home',
       component: HomeView,
-      meta: { title: 'Манго | Главная' } // Укажите заголовок для главной страницы
+      meta: { title: 'Манго | Главная' } // заголовок для главной страницы
   },
   {
       path: '/shops',
@@ -37,7 +37,13 @@ const routes = [
       name: 'registration',
       component: () => import('../views/RegistrationView.vue'),
       meta: { title: 'Манго | Регистрация' } // Заголовок для страницы "Регистрация"
-  }
+  },
+  {
+    path: '/lk',
+    name: 'lk',
+    component: () => import('../views/LkView.vue'),
+    meta: { title: 'Манго | Личный кабинет' } // Заголовок для страницы "Личного кабинета"
+}
 ];
 
 const router = createRouter({
