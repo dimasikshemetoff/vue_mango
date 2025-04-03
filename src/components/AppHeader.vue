@@ -27,7 +27,12 @@
     </header>
     <div class="burger_menu" :class="{'full': burgerOpen}">
         <img src="../assets/icons/exit.png" alt="exit" @click="openBurger">
+        
         <div class="navig">
+            <div class="search">
+                <input type="text" placeholder="ПОИСК ПО САЙТУ">
+                <img src="../assets/icons/search.png" alt="search">
+            </div>
             <router-link to="/shops" :id="isActive('/shops') ? 'active' : null" @click="openBurger">Магазины</router-link>
             <router-link to="/contacts" :id="isActive('/contacts') ? 'active' : null" @click="openBurger">Контакты</router-link>
             <router-link to="/arenda" :id="isActive('/arenda') ? 'active' : null" @click="openBurger">Арендаторам</router-link>
@@ -35,10 +40,7 @@
             <router-link to="/login" v-else @click="openBurger">Вход</router-link>
 
         </div>
-        <div class="search">
-            <input type="text" placeholder="ПОИСК ПО САЙТУ">
-            <img src="../assets/icons/search.png" alt="search">
-        </div>
+        
     </div>
     </div>
 </template>
@@ -96,7 +98,7 @@ header{
     top: 0;
     z-index: 2;
     
-
+   
     .header{
         display: flex;
         justify-content: space-between;
@@ -137,8 +139,8 @@ header{
             padding-left: 50px;
             border: 2px solid #e9592c;
             border-radius: 20px;
-            @media (max-width: 1300px) {
-                width: 300px;
+            @media (max-width: 1500px) {
+                width: 400px;
                 
             }
             @media (max-width: 950px) {
@@ -263,7 +265,7 @@ header{
 
     .search{
         position: relative;
-        margin: 10%;
+        margin: 0;
 
 
         input{
@@ -273,7 +275,7 @@ header{
             box-sizing: border-box;
             padding-left: 50px;
             border: 2px solid #e9592c;
-            border-radius: 20px;
+            border-radius: 5px;
             
             :focus-visible{
                 border: none;
@@ -296,7 +298,7 @@ header{
     .navig{
         position: relative;
         margin-left: 35px;
-        margin-right: 60px;
+        margin-right: 35px;
         display: flex;
         flex-direction: column;
         gap: 20px;
@@ -314,6 +316,7 @@ header{
         top: 20px;
         right: 20px;
         cursor: pointer;
+        z-index: 2;
     }
     
 

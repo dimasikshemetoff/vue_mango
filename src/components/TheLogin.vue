@@ -120,7 +120,7 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 60px;
-    @media (max-width: 420px)  {
+    @media (max-width: 1400px)  {
         padding-top: 80px;
         transform: scale(0.7);
     }
