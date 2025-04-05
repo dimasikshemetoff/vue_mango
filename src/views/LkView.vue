@@ -18,3 +18,10 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  main{
+    position: relative;
+    height: 80vh;
+  }
+</style>

@@ -28,42 +28,45 @@ export default {
         return {
             email: '',
             password: '',
-            passwordVisible: false // Для состояния видимости пароля
+            passwordVisible: false, // Для состояния видимости пароля
+            usernameError: false,
+            passwordError: false
         };
     },
-    mounted() {
-        document.title = this.$route.meta.title + " Регистрация"; // Установить заголовок при монтировании компонента
-    },
-    watch: {
-        $route(to) {
-            document.title = to.meta.title + " Регистрация"; // Обновление заголовка при изменении маршрута
-        }
-    },
+    
     methods: {
         togglePasswordVisibility() {
             this.passwordVisible = !this.passwordVisible; // Переключение видимости пароля
         },
+        validateInputs() {
+            this.usernameError = !this.validateEmail(this.email);
+            this.passwordError = this.password.length < 6; // Минимальная длина пароля
+        },
+        validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Регулярное выражение для email
+            return re.test(email);
+        },
         async handleRegistration() {
+
+            this.validateInputs(); // Запускаем валидацию
+
+            if (this.usernameError || this.passwordError) {
+                return; // Прерываем выполнение, если есть ошибки
+            }
+
     try {
         // Используем переменную окружения для получения URL API
-        const response = await axios.post(process.env.VUE_APP_URL_API + '/register', {
+        const response = await axios.post(process.env.VUE_APP_URL_API + '/api/register', {
             email: this.email,
             password: this.password
         });
 
         // Проверяем успешность регистрации от сервера
-        if (response.data.success) {
-            // Если успешная регистрация, вы можете также сохранить токен, если он возвращается
-            // Предполагаем, что токен может быть в response.data.token
-            if (response.data.token) {
-                localStorage.setItem('token', response.data.token); // Сохраняем токен
-                axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
-            }
-
-            alert('Регистрация прошла успешно!'); // Сообщение об успешной регистрации
+        if (response.success) {
+            
             this.$router.push('/login'); // Перенаправление на страницу входа
         } else {
-            alert('Ошибка: ' + response.data.message); // Сообщение об ошибках
+            alert('Ошибка: ' + response.success); // Сообщение об ошибках
         }
     } catch (error) {
         // Обработка ошибок
