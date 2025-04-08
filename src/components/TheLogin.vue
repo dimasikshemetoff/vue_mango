@@ -8,14 +8,12 @@
                     
                     <img class="authorization__user" src="../assets/icons/user.png" alt="username">
                 </div>
-                <center><p v-if="usernameError">Логин неправильный</p></center>
                 <div class="authorization__input" :class="{ 'error': passwordError }">
                     <input id="pass" placeholder="пароль" v-model="password" :type="passwordVisible ? 'text' : 'password'" required>
                     <img class="authorization__user" src="../assets/icons/password.png" alt="password">
                     <img class="authorization__password" id="hide" src="../assets/icons/eye_hid.png" alt="hidden" @click="togglePasswordVisibility" v-if="!passwordVisible">
                     <img class="authorization__password" id="vision" src="../assets/icons/eye_vis.png" alt="visible" @click="togglePasswordVisibility" v-if="passwordVisible">
                 </div>
-                <center><p v-if="passwordError">Пароль неправильный</p></center>
                 <button type="submit">ВХОД</button>
                 <router-link to="/registration">Регистрация</router-link>
             </form>
