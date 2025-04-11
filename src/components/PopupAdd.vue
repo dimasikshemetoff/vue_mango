@@ -1,66 +1,62 @@
 <template>
-    <div class="modal-backdrop">
-      <div class="modal" role="dialog">
-        <header class="modal-header">
-          <slot name="header">
-            Добавить магазин
-  
-            <button
-              type="button"
-              class="btn-close"
-              @click="close"
-            >
-              x
-            </button>
-          </slot>
-        </header>
-        <section class="modal-body">
-          <slot name="body">
-            <form action="" >
-                <input type="number" placeholder="Номер этажа" v-model="floorNumber">
-                <input type="text" placeholder="Название магазина" v-model="NameShop">
-                <input type="text" placeholder="Категория магазина" v-model="CategoryShop">
-                
-
-                <input type="submit" value="Добавить">
-            </form>
-          </slot>
-         </section>
-         <footer class="modal-footer">
-            <slot name="footer">
-              I'm the default footer!
-  
-              <button
-                type="button"
-                class="btn-green"
-                @click="close"
-              >
-                Close me!
-            </button>
-          </slot>
-        </footer>
-      </div>
+  <div class="modal-backdrop">
+    <div class="modal" role="dialog">
+      <header class="modal-header">
+        <slot name="header">
+          Добавить магазин
+          <button type="button" class="btn-close" @click="close">x</button>
+        </slot>
+      </header>
+      <section class="modal-body">
+        <slot name="body">
+          <form @submit.prevent="addStore">
+            <input type="tel" placeholder="Номер этажа" v-model="floorNumber" required>
+            <input type="text" placeholder="Название магазина" v-model="NameShop" required>
+            <input type="text" placeholder="Категория магазина" v-model="CategoryShop" required>
+            <input type="submit" value="Добавить">
+          </form>
+        </slot>
+      </section>
     </div>
-  </template>
-  <script>
-  export default {
-    name: 'modal',
-    data(){
-        return {
-            floorNumber: null,
-            NameShop: null,
-            CategoryShop: null
-        }
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'PopupAdd',
+  data() {
+    return {
+      floorNumber: null,
+      NameShop: '',
+      CategoryShop: ''
+    };
+  },
+  methods: {
+    close() {
+      this.$emit('close');
     },
-    methods: {
-      close() {
-        this.$emit('close');
-      },
+    addStore() {
+      const newStore = {
+        floor_number: this.floorNumber,
+        title: this.NameShop,
+        category: this.CategoryShop
+      };
+      // Отправляем новый магазин в Vuex
+      this.$store.dispatch('shops/addStore', newStore);
+
+      // Сброс полей формы
+      this.floorNumber = null;
+      this.NameShop = '';
+      this.CategoryShop = '';
+
+      // Закрываем модальное окно
+      this.close();
     },
-  };
+  },
+};
 </script>
 
-<style>
+<style lang="scss">
   .modal-backdrop {
     position: fixed;
     top: 0;
@@ -77,9 +73,14 @@
     background: #FFFFFF;
     box-shadow: 2px 2px 20px 1px;
     overflow-x: auto;
+    padding: 5px;
     display: flex;
-    width: 80%;
+    width: 30%;
     flex-direction: column;
+    border-radius: 15px;
+    @media (max-width: 700px)  {
+        width: 80%;
+    }
   }
 
   .modal-header,
@@ -92,6 +93,7 @@
   .modal-header {
     border-bottom: 1px solid #eeeeee;
     color: #E9592C;
+    font-size: 18pt;
     justify-content: space-between;
   }
 
@@ -121,5 +123,20 @@
     background: #E9592C;
     border: 1px solid #E9592C;
     border-radius: 2px;
+  }
+  form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    input{
+      width: 100%;
+      height: 30px;
+      border: 2px solid #E9592C;
+      padding-left: 5px;
+      box-sizing: border-box;
+      background-color: #FFFFFF;
+      color: #E9592C;
+    }
+
   }
 </style>

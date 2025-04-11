@@ -1,57 +1,83 @@
 <template>
     <div class="wrapper">
-    <main class="main _container">
-        <div class="slider">
-            <ul id="slideWrap"> 
-                <li><img src="../assets/icons/img/image.png" alt=""></li>
+        <main class="main _container">
 
-              </ul>
-              <a id="prev" href="#">&#8810;</a>
-            <a id="next" href="#">&#8811;</a>
-        </div>
+            <agile :prop="value">
+                
+                    <img class="slide" src="../assets/icons/img/image.png">
+                
+                
+                    <img class="slide" src="../assets/icons/img/image.png">
+                
+                
+                    <img class="slide" src="../assets/icons/img/image.png">
+            </agile>
 
-        <h1>ТОРГОВЫЙ ЦЕНТР "МАНГО"</h1>
-        <p>Торговый центр «Манго» имеет выгодное географическое месторасположение, находясь на одной из самых оживленных улиц города, с хорошо развитой инфраструктурой.<br><br>
+            <h1>ТОРГОВЫЙ ЦЕНТР "МАНГО"</h1>
+            <p>Торговый центр «Манго» имеет выгодное географическое месторасположение, находясь на одной из самых оживленных улиц города, с хорошо развитой инфраструктурой.<br><br>
+                Общая площадь ТЦ – 9 500 кв.м., торговая – 5 300 кв.м.
+                <br><br>
+                Отделы ТЦ «Манго» располагаются на 4-х этажах, включая цоколь. Для удобства покупателей и арендаторов установлены эскалатор, лифт и подъемник.
+                <br><br>
+                Возле торгового центра расположена парковка на 100 автомобилей с удобным заездом.
+                <br><br>
+                Покупатели со всего города и района приезжают в «Манго», чтобы воспользоваться всем, что может предложить этот торговый центр.</p>
 
-            Общая площадь ТЦ – 9 500 кв.м., торговая – 5 300 кв.м.
-            <br><br>
-            Отделы ТЦ «Манго» располагаются на 4-х этажах, включая цоколь. Для удобства покупателей и арендаторов установлены эскалатор, лифт и подъемник.
-            <br><br>
-            Возле торгового центра расположена парковка на 100 автомобилей с удобным заездом.
-            <br><br>
-            Покупатели со всего города и района приезжают в «Манго», чтобы воспользоваться всем, что может предложить этот торговый центр.</p>
-        <h1>НОВОСТИ ТЦ</h1>
+            <h1>НОВОСТИ ТЦ</h1>
 
-        <div class="news">
-            <div class="news_item">
-                <h2>Новый магазин!</h2>
-                <p>В нашем торговом центре открылся магазин любимец. Всё для ваших домашних питомцев</p>
-                <img src="../assets/icons/img/news.png" alt="news">
+            <div class="news">
+                <div class="news_item">
+                    <h2>Новый магазин!</h2>
+                    <p>В нашем торговом центре открылся магазин любимец. Всё для ваших домашних питомцев</p>
+                    <img src="../assets/icons/img/news.png" alt="news">
+                </div>
+                <div class="news_item">
+                    <h2>Новый магазин!</h2>
+                    <p>В нашем торговом центре открылся магазин любимец. Всё для ваших домашних питомцев</p>
+                    <img src="../assets/icons/img/news.png" alt="news">
+                </div>
+                <div class="news_item">
+                    <h2>Новый магазин!</h2>
+                    <p>В нашем торговом центре открылся магазин любимец. Всё для ваших домашних питомцев</p>
+                    <img src="../assets/icons/img/news.png" alt="news">
+                </div>
+                <center><b>1</b> 2 3</center>
             </div>
-            <div class="news_item">
-                <h2>Новый магазин!</h2>
-                <p>В нашем торговом центре открылся магазин любимец. Всё для ваших домашних питомцев</p>
-                <img src="../assets/icons/img/news.png" alt="news">
-            </div>
-            <div class="news_item">
-                <h2>Новый магазин!</h2>
-                <p>В нашем торговом центре открылся магазин любимец. Всё для ваших домашних питомцев</p>
-                <img src="../assets/icons/img/news.png" alt="news">
-            </div>
-            <center><b>1</b> 2 3</center>
-        </div>
-    </main>
+        </main>
     </div>
 </template>
 
 <script>
-export default{
-    name: "Main"
+import { VueAgile } from 'vue-agile'
+
+
+export default {
+    name: "Main",
+    components: {
+        agile: VueAgile 
+    },
 }
 </script>
 
 <style lang="scss">
-    .full{
+
+.agile__nav-button--prev, .agile__nav-button--next{
+    width: 40%;
+    margin: 0 20px;
+    background-color: #2f8f38;
+    border-radius: 0 0 10px 10px;
+}
+
+.agile__dots{
+width: 10%;
+color: orangered;
+text-align: center;
+}
+
+
+
+
+.full{
         left: 0; 
         
 }
@@ -119,58 +145,31 @@ export default{
     }
 }
 
-.slider{
-    position: relative;
-    width: 100%;
-    height: fit-content;
-
-    overflow: hidden;
-    box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
-    border-radius: 20px;
-
-    img{
-        width: 100%;
-    }
-    
-    ul {
+    .slider {
         position: relative;
-        list-style: none;
-        height: fit-content;
-        width: 100%;
-        padding: 0;
-        margin: 0;
-        transition: all 750ms ease;
-        left: 0;
-        li {
-            position: relative;
-            height: 100%;
-          
-            float: left;
-            
-            object-fit: contain;
-            
-          }
-      }
-      #prev, #next {
-        width: 50px;
-        line-height: 50px;
-        text-align: center;
-        color: white;
-        text-decoration: none;
-        position: absolute;
-        top: 50%;
-        border-radius: 50%;
-        font-size: 2rem;
-        text-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
-        transform: translateY(-50%);
-        transition: all 150ms ease;
-      }
-      #prev {
-        left: 10px;
-      }
-      #next {
-        right: 10px;
-      }
+    
+
+        #slideWrap {
+            list-style: none; /* Убираем маркеры списка */
+            padding: 0;
+        }
+
+        #prev, #next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.7);
+            border: none;
+            cursor: pointer;
+        }
+
+        #prev {
+            left: 10px; /* Положение кнопки "Назад" */
+        }
+
+        #next {
+            right: 10px; /* Положение кнопки "Вперед" */
+        }
 
       #prev:hover, #next:hover {
         background-color: rgba(0, 0, 0, 0.5);

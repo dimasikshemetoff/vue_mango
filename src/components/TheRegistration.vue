@@ -62,16 +62,52 @@ export default {
         });
 
         // Проверяем успешность регистрации от сервера
-        if (response.success) {
-            
-            this.$router.push('/login'); // Перенаправление на страницу входа
+        if (response.status) {
+            try {
+            const response = await axios.post(process.env.VUE_APP_URL_API + '/api/login', {
+                email: this.email,
+                password: this.password
+            });
+
+            const user = response.data;
+
+            // Предполагаем, что ваш сервер возвращает токен в поле token
+            if (user.status) {
+                // Сохраняем токен и другие данные о пользователе
+                localStorage.setItem('userRole', user.role);
+                localStorage.setItem('username', user.email);
+                localStorage.setItem('token', user.token); // Сохраняем токен
+                console.log(localStorage)
+                // Установим заголовок Authorization для будущих запросов
+                axios.defaults.headers.common['Authorization'] = `Bearer ${user.token}`;
+                
+                this.$router.push('/');
+            } else {
+                alert('Недействительный логин или пароль');
+            }
+        } catch (error) {
+            // Обработка ошибок
+            if (error.response) {
+                // Если сервер ответил с кодом ошибки
+                console.error('Ошибка при входе:', error.response.data);
+                alert('Ошибка: ' + error.response.data.message);
+            } else if (error.request) {
+                // Запрос был сделан, но ответа не получено
+                console.error('Запрос был сделан, но ответа не получено:', error.request);
+                alert('Ошибка: Нет ответа от сервера.');
+            } else {
+                // Произошла ошибка при настройке запроса
+                console.error('Ошибка:', error.message);
+                alert('Ошибка: ' + error.message);
+            }
+        }
         } else {
-            alert('Ошибка: ' + response.success); // Сообщение об ошибках
+            console.log('Ошибка: ' + response.message); // Сообщение об ошибках
         }
     } catch (error) {
         // Обработка ошибок
         console.error('Ошибка при регистрации:', error);
-        alert('Ошибка: ' + (error.response && error.response.data.message ? error.response.data.message : 'Неизвестная ошибка')); // Обработка сетевых ошибок
+        console.log('Ошибка: ' + (error.response && error.response.data.message ? error.response.data.message : 'Неизвестная ошибка')); // Обработка сетевых ошибок
     }
 }
 

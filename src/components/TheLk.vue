@@ -1,31 +1,33 @@
 <template>
     <main class="main _container">
         
-        <div class="lkab">
+        <div class="lkab" v-show="!loading">
             <h1>Личный кабинет</h1>
             <div class="username">
-                <h2 v-if="isAuthorize()">{{ username }}</h2>
+                <h2 v-if="authorize">{{ username }}</h2>
                 <h2 v-else>Пользователь</h2>
                 <button @click="editPassword">Править пароль</button>
                 
-                    
-                    
-                        <div class="authorization__input" :style="{'opacity': visibleInput}" :class="{ 'error': passwordError }">
-                        <input id="pass" placeholder="пароль" v-model="password" :type="passwordVisible ? 'text' : 'password'" required>
-                        <img class="authorization__input__password" id="hide" src="../assets/icons/eye_hid.png" alt="hidden" @click="togglePasswordVisibility" v-if="!passwordVisible">
-                        <img class="authorization__input__password" id="vision" src="../assets/icons/eye_vis.png" alt="visible" @click="togglePasswordVisibility" v-if="passwordVisible">
-                        <br><button>Изменить</button>
-                        </div>
+                <div class="authorization__input" :style="{'opacity': visibleInput}" :class="{ 'error': passwordError }">
+                    <input id="pass" placeholder="пароль" v-model="password" :type="passwordVisible ? 'text' : 'password'" required>
+                    <img class="authorization__input__password" id="hide" src="../assets/icons/eye_hid.png" alt="hidden" @click="togglePasswordVisibility" v-if="!passwordVisible">
+                    <img class="authorization__input__password" id="vision" src="../assets/icons/eye_vis.png" alt="visible" @click="togglePasswordVisibility" v-if="passwordVisible">
+                    <br><button>Изменить</button>
+                </div>
                 
             </div>
             <button @click="logout" class="logout">Выход из аккаунта</button>
-            
         </div>
+
+        <app-loading :loading="loading"></app-loading> <!-- Передаем loading как пропс -->
     </main>
 </template>
 
+
 <script>
 import axios from 'axios';
+import AppLoading from './AppLoading.vue';
+
 export default{
     data(){
         return {
@@ -34,9 +36,12 @@ export default{
             auth: false,
             username: "Пользователь",
             visibleInput: '0',
-            token: localStorage.getItem('token')
-
+            token: localStorage.getItem('token'),
+            loading: true,
         }
+    },
+    components:{
+        AppLoading
     },
     methods: {
         togglePasswordVisibility() {
@@ -54,7 +59,7 @@ export default{
             await axios.get(process.env.VUE_APP_URL_API + '/api/logout', {
                 headers: { Authorization: `Bearer ${this.token}`}
             }).then((response) => {
-                console.log(response)
+
 
                 if(response.status == 200) {
                     
@@ -71,6 +76,8 @@ export default{
             })
         },
         async isAuthorize(){
+            this.loading = true
+
             await axios.get(process.env.VUE_APP_URL_API + '/api/checkToken', {
                 headers: { Authorization: `Bearer ${this.token}`}
             }).then((response) => {
@@ -84,13 +91,19 @@ export default{
                     // Чел н авторизирован
 
                 }
+
+                this.loading = false
             }).catch((e) => {
                 console.log(e)
+                this.loading = false
             })
 
             this.username = localStorage.getItem('username')
             return this.authorize
         }
+    },
+    mounted() {
+        this.isAuthorize()
     }
     
 }
@@ -100,7 +113,10 @@ export default{
 <style lang="scss" scoped>
 
 
+
     .lkab{
+
+        
         
         h1{
             font-size: 30pt;
@@ -112,6 +128,8 @@ export default{
             padding: 20px;
             background-color: rgba(241, 50, 50, 0.829);
             color: white;
+            display: block;
+            margin: 10px auto;
 
             @media (max-width: 400px) {
                 display: flex;

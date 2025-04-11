@@ -1,94 +1,97 @@
 <template>
-    <main class="main _container" v-if="(stores)!=0">
+    <main class="main _container" v-show="!loading" v-if="stores.length !== 0">
+        
         <h1>
             Магазины ТЦ "Манго"
         </h1>
 
-        <div v-for="floor_number in uniqueFloors" :key="floor_number" >
-            <h2 class="hall">{{ floor_number }} этаж  </h2>
+        <div v-for="floor_number in uniqueFloors" :key="floor_number">
+            <h2 class="hall">{{ floor_number }} этаж</h2>
             <div class="hall_list">
                 <div v-for="store in stores.filter(s => s.floor_number === floor_number)" :key="store.id" class="hall_list_item">
-                    <img src="../assets/icons/img/shop.png" alt="shop">
+                    <img src="../assets/icons/img/shop.png" width="40%" alt="shop">
                     
                     <dl>
                         <dd>{{ store.category }} </dd>
-                        <dt>{{ store.title }}<p v-if="UserRole === 'admin'">✘</p></dt>
-                        
+                        <dt>{{ store.title }}</dt>
+                        <a class="exit" v-if="UserRole === 'admin'" @click="this.$store.dispatch('shops/deleteStore', store.id_store)">УДАЛИТЬ</a>
                     </dl>
                 </div>
             </div>
         </div>
         <p id="added" v-if="UserRole === 'admin'" @click="showModal">Добавить</p>
-            <popup-add v-show="isModalVisible" @close="closeModal" />
+        <popup-add v-show="isModalVisible" @close="closeModal" />
+        
+        
     </main>
-    <main class="main _container" v-else>
+    <app-loading :loading="loading"></app-loading>
+    <main class="main _container" v-show="!loading" v-if="stores.length == 0">
+        
         <h1>
             УПС(( 
         </h1>
-            <h2 class="hall">В торговом центре закончились магазины!</h2>
-            <p id="added" v-if="UserRole === 'admin'" @click="showModal">Добавить</p>
-            <popup-add v-show="isModalVisible" @close="closeModal" />
+        <h2 class="hall">В торговом центре закончились магазины!</h2>
+        <p id="added" v-if="UserRole === 'admin'" @click="showModal">Добавить</p>
+        <popup-add v-show="isModalVisible" @close="closeModal" />
     </main>
-    </template>
+</template>
 
 <script>
-import axios from 'axios';
+import AppLoading from './AppLoading.vue'; // Импорт компонента загрузки
 import PopupAdd from './PopupAdd.vue';
 
 export default {
-    components:{
-        PopupAdd
+    components: {
+        PopupAdd,
+        AppLoading // Добавляем компонент загрузки в секцию компонентов
     },
     data() {
         return {
-            // stores: [],
             UserRole: localStorage.getItem('userRole'),
             isModalVisible: false,
+            loading: true, // Переменная для отслеживания состояния загрузки
         };
     },
     async created() {
-        // await this.getStores();
-        // console.log(this.$store.state.shops)
-        this.$store.dispatch('shops/getStores');
+        this.loading = true; // Установлка состояния загрузки
+        await this.$store.dispatch('shops/getStores');
+        this.loading = false; // Скрытие загрузки после получения данных
     },
     methods: {
         showModal() {
-        this.isModalVisible = true;
-      },
-      closeModal() {
-        this.isModalVisible = false;
-      },
-        // async getStores() {
-        //     try {
-        //         const response = await axios.get(process.env.VUE_APP_URL_API + '/api/stores');
-        //         this.stores = response.data;
-        //         console.log(process.env.VUE_APP_URL_API)
-        //     } catch (error) {
-        //         console.error('Ошибка при получении магазинов:', error);
-        //     }
-        // }
+            this.isModalVisible = true;
+        },
+        closeModal() {
+            this.isModalVisible = false;
+        },
     },
     computed: {
         uniqueFloors() {
-            // Получаем уникальные этажи, в которых находятся магазины
             return [...new Set(this.stores.map(store => store.floor_number))].sort((a, b) => a - b);
         },
         stores() {
-            return this.$store.state.shops.stores
+            return this.$store.state.shops.stores;
         }
-    }}
-
+    }
+}
 </script>
 
+
 <style lang="scss">
+.exit{
+    cursor: pointer;
+    color: white;
+    padding: 0 5px;
+    background-color: red;
+}
 .hall_list{
     background-color: #d9d9d9;
     padding: 45px;
     border-radius: 20px;
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
-    justify-content: space-between;
+    gap: 10px;
+    justify-content: stretch;
     
     &_item{
         display: flex;
@@ -133,7 +136,9 @@ export default {
             
             }}
 #added{
+    display: block;
     padding: 10px;
+    margin: 10px auto;
     background-color: #E9592C;
     width: fit-content;
     color: white;
